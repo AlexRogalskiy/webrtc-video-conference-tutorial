@@ -4,6 +4,7 @@
 * WebRTC using Media Server (Many to Many)
 
 Start MCU: `./run-media-server.sh`
+
 Install signaling server: `yarn` (or `npm install`)
 Start signaling server: `node server.js`
 
