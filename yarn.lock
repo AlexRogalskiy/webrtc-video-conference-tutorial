@@ -542,9 +542,9 @@ reconnect-core@KurentoForks/reconnect-core:
   dependencies:
     backoff "~2.3.0"
 
-"reconnect-ws@github:kurentoforks/reconnect-ws#0.0.1":
+reconnect-ws@KurentoForks/reconnect-ws#0.0.1:
   version "0.0.0"
-  resolved "https://codeload.github.com/kurentoforks/reconnect-ws/tar.gz/7fb7020e3ca1ffeaaa8bb4ddd690cf28c8d02a2b"
+  resolved "https://codeload.github.com/KurentoForks/reconnect-ws/tar.gz/7fb7020e3ca1ffeaaa8bb4ddd690cf28c8d02a2b"
   dependencies:
     reconnect-core KurentoForks/reconnect-core
     websocket-stream "~0.5.1"
