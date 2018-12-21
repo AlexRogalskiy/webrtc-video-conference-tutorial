@@ -1,7 +1,9 @@
 # WebRTC Video Conference
 
 
-* WebRTC using Media Server (Many to Many)
+Requirements:
+* latest nodejs version
+* chrome browser version >= 69
 
 Start MCU: `./run-media-server.sh`
 
