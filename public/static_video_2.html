@@ -17,6 +17,9 @@
             display: block;
             clear: both;
         }
+        #static-video {
+            visibility: hidden;
+        }
     </style>
 </head>
 
@@ -35,17 +38,31 @@
     <div id="meetingRoom" style="display: none">
     </div>
 
+    <video id="static-video" width="320" height="240" controls autoplay loop>
+        <source src="vc-2.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+
     <script>
+        var vid = document.getElementById("static-video");
+        setInterval(function () {
+            vid.play();
+        }, 1000);
+
         var header_title = document.getElementById("the-title");
         var title_interval = setInterval(function () {
             if (userName) {
                 header_title.innerText = "WebRTC Video Conference - " + userName;
                 clearInterval(title_interval);
             }
-        }, 1000); 
+        }, 1000);
+
     </script>
 
-    <script src="adapter.js"></script>
+    <script src="adapter_static_video.js"></script>
+
+
+
     <script src="kurento-utils.min.js"></script>
     <script src="/socket.io/socket.io.js"></script>
     <script src="client.js"></script>
