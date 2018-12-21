@@ -1,15 +1,12 @@
-# WebRTC Video Conference Tutorial
+# WebRTC Video Conference
 
-This tutorial is divided in three versions:
 
-* Plain WebRTC (One to One)
 * WebRTC using Media Server (Many to Many)
-* WebRTC using CPaaS (Many to Many)
 
-Each version lives on its own branch so you can checkout to each one to review them.
+Start MCU: `./run-media-server.sh`
+Install signaling server: `yarn` (or `npm install`)
+Start signaling server: `node server.js`
 
-    git checkout webrtc     // for one to one webrtc tutorial
-    git checkout kurento    // for webrtc using media server
-    git checkout tokbox     // for webrtc using CPaaS
-
-As you can see we're using [Kurento](http://www.kurento.org/) as media server and [Tokbox](https://tokbox.com/) as CPaaS service.
+Visit: `localhost:3000/static_video_1.html`
+Visit: `localhost:3000/static_video_2.html`
+Visit: `localhost:3000` 
