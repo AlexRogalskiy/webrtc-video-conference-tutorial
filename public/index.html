@@ -40,6 +40,7 @@
         var title_interval = setInterval(function () {
             if (userName) {
                 header_title.innerText = "WebRTC Video Conference - " + userName;
+                document.querySelector("body").style.backgroundColor = 'grey';
                 clearInterval(title_interval);
             }
         }, 1000); 
