@@ -2,14 +2,11 @@
 
 
 Requirements:
-* latest nodejs version
 * chrome browser version >= 69
 
+Build Signaling server: `./build.sh`
 Start MCU: `./run-media-server.sh`
-
-Install signaling server: `yarn` (or `npm install`)
-
-Start signaling server: `node server.js`
+Start signaling server: `./run-signaling-server.sh`
 
 Visit: `localhost:3000/static_video_1.html`
 
