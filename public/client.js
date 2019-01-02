@@ -11,7 +11,9 @@ var userName;
 var participants = {};
 
 // Let's do this
-var socket = io();
+var socket =  io({
+    upgrade: false
+});
 
 btnRegister.onclick = function () {
     roomName = inputRoom.value;
