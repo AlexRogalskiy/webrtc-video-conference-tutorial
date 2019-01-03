@@ -3,7 +3,9 @@ const express = require('express');
 const app = express();
 var http = require('http').Server(app);
 var io = require('socket.io')(http, {
-  path: '/signal'
+  path: '/signal',
+  transports: ['polling'],
+  allowUpgrades: false
 });
 var kurento = require('kurento-client');
 var minimist = require('minimist');
