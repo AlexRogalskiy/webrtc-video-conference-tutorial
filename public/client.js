@@ -3,8 +3,9 @@ var divRoomSelection = document.getElementById('roomSelection');
 var divMeetingRoom = document.getElementById('meetingRoom');
 var inputRoom = document.getElementById('room');
 var inputName = document.getElementById('name');
-var inputToken = document.getElementById('token');
+var inputPassword = document.getElementById('password');
 var btnRegister = document.getElementById('register');
+var btnWithToken = document.getElementById('withToken');
 
 // variables
 var roomName;
@@ -16,21 +17,50 @@ var socket;
 btnRegister.onclick = function () {
     roomName = inputRoom.value;
     userName = inputName.value;
-    token = inputToken.value;
 
     if (roomName === '' || userName === '') {
         alert('Room and Name are required!');
     } else { 
-        initSocket("/", token);
-        var message = {
-            event: 'joinRoom',
-            userName: userName,
-            roomName: roomName
-        }
-        sendMessage(message);
-        divRoomSelection.style = "display: none";
-        divMeetingRoom.style = "display: block";
+        login(userName, roomName);
     }
+};
+
+btnWithToken.onclick = function() {
+    roomName = inputRoom.value;
+    userName = inputName.value;
+    password = inputPassword.value;
+
+    if (roomName === '' || userName === '' || password === '') {
+        alert('Room, password and name are required!');
+    } else {
+        fetch("https://evaeytkbve.eastus.cloudapp.azure.com/login", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded"
+            },
+            body: `user=${userName}&password=${password}`
+        }).then(res => {
+            return res.json()
+        }).then(authResponse => {
+            alert('Using token to login: ' + authResponse.token);
+            login(userName, roomName, authResponse.token);
+        }).catch(err => {
+            alert("Encounter error to join room: " + err.toString());
+            console.error(err);
+        });
+    }
+};
+
+function login(userName, roomName, token) {
+    initSocket("/", token);
+    var message = {
+        event: 'joinRoom',
+        userName: userName,
+        roomName: roomName
+    }
+    sendMessage(message);
+    divRoomSelection.style = "display: none";
+    divMeetingRoom.style = "display: block";
 }
 
 function initSocket(uri, token) {
