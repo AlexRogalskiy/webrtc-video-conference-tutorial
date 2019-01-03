@@ -2,7 +2,6 @@
 set -e
 
 DATE=$(date +%Y%m%d)
-npm install
 docker build . -t glasnostic/video-signaling
 docker tag glasnostic/video-signaling glasnostic/video-signaling:$DATE
 
