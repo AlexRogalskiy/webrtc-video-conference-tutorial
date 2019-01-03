@@ -21,7 +21,7 @@ btnRegister.onclick = function () {
     if (roomName === '' || userName === '') {
         alert('Room and Name are required!');
     } else { 
-        initSocket("http://localhost:3000", token);
+        initSocket("/", token);
         var message = {
             event: 'joinRoom',
             userName: userName,
@@ -34,7 +34,6 @@ btnRegister.onclick = function () {
 }
 
 function initSocket(uri, token) {
-    // Let's do this
     socket = io(
         uri, {
         transportOptions: {
@@ -44,7 +43,8 @@ function initSocket(uri, token) {
             }
           }
         },
-        upgrade: false
+        upgrade: false,
+        path: '/signal'
       }
     );
 
