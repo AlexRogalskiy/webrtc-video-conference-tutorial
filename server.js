@@ -2,7 +2,9 @@
 const express = require('express');
 const app = express();
 var http = require('http').Server(app);
-var io = require('socket.io')(http);
+var io = require('socket.io')(http, {
+  path: '/signal'
+});
 var kurento = require('kurento-client');
 var minimist = require('minimist');
 

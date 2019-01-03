@@ -22,6 +22,6 @@
     "kurento-client": "6.6.0",
     "minimist": "1.2.0",
     "socket.io": "2.0.3",
-    "websocket-stream": "^5.1.2"
+    "websocket-stream": "5.1.2"
   }
 }

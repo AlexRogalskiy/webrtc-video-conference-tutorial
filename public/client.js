@@ -3,6 +3,7 @@ var divRoomSelection = document.getElementById('roomSelection');
 var divMeetingRoom = document.getElementById('meetingRoom');
 var inputRoom = document.getElementById('room');
 var inputName = document.getElementById('name');
+var inputToken = document.getElementById('token');
 var btnRegister = document.getElementById('register');
 
 // variables
@@ -10,18 +11,17 @@ var roomName;
 var userName;
 var participants = {};
 
-// Let's do this
-var socket =  io({
-    upgrade: false
-});
+var socket;
 
 btnRegister.onclick = function () {
     roomName = inputRoom.value;
     userName = inputName.value;
+    token = inputToken.value;
 
     if (roomName === '' || userName === '') {
         alert('Room and Name are required!');
-    } else {
+    } else { 
+        initSocket("/", token);
         var message = {
             event: 'joinRoom',
             userName: userName,
@@ -33,25 +33,42 @@ btnRegister.onclick = function () {
     }
 }
 
-// messages handlers
-socket.on('message', message => {
-    console.log('Message received: ' + message.event);
+function initSocket(uri, token) {
+    socket = io(
+        uri, {
+        transportOptions: {
+          polling: {
+            extraHeaders: {
+              'Authorization': `Bearer ${token}`
+            }
+          }
+        },
+        upgrade: false,
+        path: '/signal'
+      }
+    );
 
-    switch (message.event) {
-        case 'newParticipantArrived':
-            receiveVideo(message.userid, message.username);
-            break;
-        case 'existingParticipants':
-            onExistingParticipants(message.userid, message.existingUsers);
-            break;
-        case 'receiveVideoAnswer':
-            onReceiveVideoAnswer(message.senderid, message.sdpAnswer);
-            break;
-        case 'candidate':
-            addIceCandidate(message.userid, message.candidate);
-            break;
-    }
-});
+    // messages handlers
+    socket.on('message', message => {
+        console.log('Message received: ' + message.event);
+
+        switch (message.event) {
+            case 'newParticipantArrived':
+                receiveVideo(message.userid, message.username);
+                break;
+            case 'existingParticipants':
+                onExistingParticipants(message.userid, message.existingUsers);
+                break;
+            case 'receiveVideoAnswer':
+                onReceiveVideoAnswer(message.senderid, message.sdpAnswer);
+                break;
+            case 'candidate':
+                addIceCandidate(message.userid, message.candidate);
+                break;
+        }
+    });
+
+}
 
 // handlers functions
 function receiveVideo(userid, username) {
