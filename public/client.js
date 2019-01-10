@@ -14,8 +14,8 @@ var participants = {};
 
 var iceServers = [{
   url: "turn:40.76.204.227:3478",
-  username: "kurento",
-  credential: "kurentow"
+  username: "media_relay",
+  credential: "m9SOk4ImGA"
 }];
 
 var socket;
