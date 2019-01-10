@@ -12,6 +12,12 @@ var roomName;
 var userName;
 var participants = {};
 
+var iceServers = [{
+  url: "turn:40.76.204.227:3478",
+  username: "media_relay",
+  credential: "m9SOk4ImGA"
+}];
+
 var socket;
 
 btnRegister.onclick = function () {
@@ -124,7 +130,11 @@ function receiveVideo(userid, username) {
 
     var options = {
         remoteVideo: video,
-        onicecandidate: onIceCandidate
+        onicecandidate: onIceCandidate,
+        configuration: {
+          iceServers: iceServers,
+          iceTransportPolicy: "relay"
+        }
     }
 
     user.rtcPeer = kurentoUtils.WebRtcPeer.WebRtcPeerRecvonly(options,
@@ -194,7 +204,11 @@ function onExistingParticipants(userid, existingUsers) {
     var options = {
         localVideo: video,
         mediaConstraints: constraints,
-        onicecandidate: onIceCandidate
+        onicecandidate: onIceCandidate,
+        configuration: {
+          iceServers: iceServers,
+          iceTransportPolicy: "relay"
+        }
     }
 
     user.rtcPeer = kurentoUtils.WebRtcPeer.WebRtcPeerSendonly(options,
