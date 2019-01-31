@@ -4,7 +4,6 @@ var divMeetingRoom = document.getElementById('meetingRoom');
 var inputRoom = document.getElementById('room');
 var inputName = document.getElementById('name');
 var inputPassword = document.getElementById('password');
-var btnRegister = document.getElementById('register');
 var btnWithToken = document.getElementById('withToken');
 
 // variables
@@ -19,17 +18,6 @@ var iceServers = [{
 }];
 
 var socket;
-
-btnRegister.onclick = function () {
-    roomName = inputRoom.value;
-    userName = inputName.value;
-
-    if (roomName === '' || userName === '') {
-        alert('Room and Name are required!');
-    } else { 
-        login(userName, roomName);
-    }
-};
 
 btnWithToken.onclick = function() {
     roomName = inputRoom.value;
@@ -48,11 +36,12 @@ btnWithToken.onclick = function() {
         }).then(res => {
             return res.json()
         }).then(authResponse => {
+            console.log("Token: " + authResponse.token);
             alert('Using token to login: ' + authResponse.token);
             login(userName, roomName, authResponse.token);
         }).catch(err => {
-            alert("Encounter error to join room: " + err.toString());
-            console.error(err);
+            alert("Can not authenticate. Entering room without authentication");
+            login(userName, roomName);
         });
     }
 };
